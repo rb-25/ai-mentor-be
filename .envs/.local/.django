@@ -1,0 +1,20 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_URL=redis://redis:6379/0
+
+# Celery
+# ------------------------------------------------------------------------------
+
+# Flower
+CELERY_FLOWER_USER=SqEnkHshXEOwHcTvwkOkZGmftAthzBAx
+CELERY_FLOWER_PASSWORD=6bw3qNHsi9Da1KKoG9mFAdEh7jhBEWwRWm04SZDbeBvu7NF33t2gMnAn2xaXvHyM
+
+FIREBASE_CREDENTIALS_PATH =gdg-be-firebase-adminsdk-fbsvc-b11cec50cc.json
+
+FIREBASE_KEY = 940845016527-si07qd59pdr191q65snulh8rgce6sm67.apps.googleusercontent.com
+
+GEMINI_API_KEY = AIzaSyBYN4RJMB_n60NJJcvMM1F0nVtpSB6QvQ0
