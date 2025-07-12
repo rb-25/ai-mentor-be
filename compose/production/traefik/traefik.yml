@@ -31,7 +31,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: 'Host(`aarabi.me`) || Host(`www.aarabi.me`)'
+      rule: 'Host(`gdg-be.aarabi.live`) || Host(`www.gdg-be.aarabi.live`)'
       entryPoints:
         - web-secure
       middlewares:
@@ -42,7 +42,7 @@ http:
         certResolver: letsencrypt
 
     flower-secure-router:
-      rule: 'Host(`aarabi.me`)'
+      rule: 'Host(`gdg-be.aarabi.live`)'
       entryPoints:
         - flower
       service: flower

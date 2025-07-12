@@ -11,7 +11,7 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["aarabi.me"])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["gdg-be.aarabi.live"])
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ STATIC_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/static/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env(
     "DJANGO_DEFAULT_FROM_EMAIL",
-    default="gdg-be <noreply@aarabi.me>",
+    default="gdg-be <noreply@gdg-be.aarabi.live>",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
@@ -176,7 +176,7 @@ LOGGING = {
 # -------------------------------------------------------------------------------
 # Tools that generate code samples can use SERVERS to point to the correct domain
 SPECTACULAR_SETTINGS["SERVERS"] = [
-    {"url": "https://aarabi.me", "description": "Production server"},
+    {"url": "https://gdg-be.aarabi.live", "description": "Production server"},
 ]
 # Your stuff...
 # ------------------------------------------------------------------------------

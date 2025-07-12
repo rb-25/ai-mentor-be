@@ -275,6 +275,8 @@ gdg_be/media/
 .ipython/
 .env
 .envs/*
-!.envs/.local/
+.envs/.local/
 
 gdg-be-firebase-adminsdk-fbsvc-b11cec50cc.json
+
+.envs
