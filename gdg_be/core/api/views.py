@@ -99,6 +99,14 @@ class UserProjectViewSet(viewsets.ModelViewSet):
             UserProjectSerializer(user_project).data, status=status.HTTP_200_OK
         )
 
+    def list(self, request, *args, **kwargs):
+        user = request.user
+        user_projects = UserProject.objects.filter(user=user)
+        return Response(
+            UserProjectSerializer(user_projects, many=True).data,
+            status=status.HTTP_200_OK,
+        )
+
 
 class NewProjectView(APIView):
     authentication_classes = [FirebaseAuthentication]
