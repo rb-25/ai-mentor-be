@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from gdg_be.users.authentication import FirebaseAuthentication
+from gdg_be.users.models import User
 import os
 import google.generativeai as genai
 import json

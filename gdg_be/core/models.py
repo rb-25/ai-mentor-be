@@ -19,8 +19,6 @@ class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     domain = models.CharField(max_length=255, default="general")
-    is_started = models.BooleanField(default=False)
-    is_completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -48,6 +46,15 @@ class UserProject(models.Model):
     project = models.ForeignKey(
         Project, related_name="user_projects", on_delete=models.CASCADE
     )
+    current_step = models.ForeignKey(
+        Step,
+        related_name="user_projects",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    is_started = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
