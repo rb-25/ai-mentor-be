@@ -65,7 +65,6 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
 
 
 GS_BUCKET_NAME = env("DJANGO_GCP_STORAGE_BUCKET_NAME")
-GS_DEFAULT_ACL = "publicRead"
 # STATIC & MEDIA
 # ------------------------
 STORAGES = {
