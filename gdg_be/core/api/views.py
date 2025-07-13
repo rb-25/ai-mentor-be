@@ -81,6 +81,24 @@ class UserProjectViewSet(viewsets.ModelViewSet):
     queryset = UserProject.objects.all()
     serializer_class = UserProjectSerializer
 
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        project = Project.objects.get(id=request.data.get("project"))
+        user_project = UserProject.objects.create(user=user, project=project)
+        return Response(
+            UserProjectSerializer(user_project).data, status=status.HTTP_201_CREATED
+        )
+
+    def update(self, request, *args, **kwargs):
+        user_project = UserProject.objects.get(id=kwargs.get("pk"))
+        user_project.current_step = Step.objects.get(
+            id=request.data.get("current_step")
+        )
+        user_project.save()
+        return Response(
+            UserProjectSerializer(user_project).data, status=status.HTTP_200_OK
+        )
+
 
 class NewProjectView(APIView):
     authentication_classes = [FirebaseAuthentication]
