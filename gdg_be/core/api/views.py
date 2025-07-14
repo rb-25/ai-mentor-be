@@ -68,11 +68,22 @@ class ProjectViewSet(viewsets.ModelViewSet):
         return Response(ProjectSerializer(project).data, status=status.HTTP_201_CREATED)
 
 
-class StepViewSet(viewsets.ReadOnlyModelViewSet):
+class StepViewSet(viewsets.ModelViewSet):
     authentication_classes = [FirebaseAuthentication]
     permission_classes = [IsAuthenticated]
     queryset = Step.objects.all()
     serializer_class = StepSerializer
+
+    def update(self, request, *args, **kwargs):
+        step = Step.objects.get(id=kwargs.get("id"))
+        step.is_completed = request.data.get("is_completed")
+        step.save()
+        project = step.project
+        if step.ordering == project.steps.count():
+            user_project = UserProject.objects.get(user=request.user, project=project)
+            user_project.is_completed = True
+            user_project.save()
+        return Response(StepSerializer(step).data, status=status.HTTP_200_OK)
 
 
 class UserProjectViewSet(viewsets.ModelViewSet):
