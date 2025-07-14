@@ -76,13 +76,13 @@ class StepViewSet(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         step = Step.objects.get(id=kwargs.get("id"))
-        step.is_completed = request.data.get("is_completed")
-        step.save()
+        next_step = Step.objects.filter(
+            project=step.project, ordering=step.ordering + 1
+        ).first()
         project = step.project
-        if step.ordering == project.steps.count():
-            user_project = UserProject.objects.get(user=request.user, project=project)
-            user_project.is_completed = True
-            user_project.save()
+        user_project = UserProject.objects.get(user=request.user, project=project)
+        user_project.current_step = next_step
+        user_project.save()
         return Response(StepSerializer(step).data, status=status.HTTP_200_OK)
 
 
