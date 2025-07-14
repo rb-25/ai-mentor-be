@@ -74,7 +74,7 @@ class StepViewSet(viewsets.ModelViewSet):
     queryset = Step.objects.all()
     serializer_class = StepSerializer
 
-    def update(self, request, *args, **kwargs):
+    def partial_update(self, request, *args, **kwargs):
         step = Step.objects.get(id=kwargs.get("id"))
         step.is_completed = request.data.get("is_completed")
         step.save()
