@@ -84,16 +84,26 @@ class UserProjectViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         user = request.user
         project = Project.objects.get(id=request.data.get("project"))
-        user_project = UserProject.objects.create(user=user, project=project)
+        step = Step.objects.filter(project=project, ordering=1).first()
+        user_project = UserProject.objects.create(
+            user=user, project=project, is_started=True, current_step=step
+        )
         return Response(
             UserProjectSerializer(user_project).data, status=status.HTTP_201_CREATED
         )
 
     def update(self, request, *args, **kwargs):
-        user_project = UserProject.objects.get(id=kwargs.get("pk"))
-        user_project.current_step = Step.objects.get(
-            id=request.data.get("current_step")
-        )
+        user_project = UserProject.objects.get(id=kwargs.get("id"))
+        if request.data.get("is_started") and user_project.is_started == False:
+            user_project.is_started = True
+        if request.data.get("is_completed") and user_project.is_completed == False:
+            user_project.is_completed = True
+        if request.data.get("current_step"):
+            project = user_project.project
+            step = Step.objects.filter(
+                project=project, ordering=int(request.data.get("current_step")) + 1
+            ).first()
+            user_project.current_step = step
         user_project.save()
         return Response(
             UserProjectSerializer(user_project).data, status=status.HTTP_200_OK
