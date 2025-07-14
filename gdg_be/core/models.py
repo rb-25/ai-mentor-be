@@ -61,5 +61,12 @@ class UserProject(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        unique_together = ("user", "project")
+        # Or, for Django 2.2+:
+        # constraints = [
+        #     models.UniqueConstraint(fields=["user", "project"], name="unique_user_project")
+        # ]
+
     def __str__(self):
         return self.project.name

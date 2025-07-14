@@ -83,7 +83,7 @@ class UserProjectViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         user = request.user
-        project = Project.objects.get(id=request.data.get("project"))
+        project = Project.objects.get(id=int(request.data.get("project")))
         step = Step.objects.filter(project=project, ordering=1).first()
         user_project = UserProject.objects.create(
             user=user, project=project, is_started=True, current_step=step
