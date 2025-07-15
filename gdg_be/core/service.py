@@ -8,7 +8,7 @@ from googleapiclient.discovery import build
 SCOPES = ["https://www.googleapis.com/auth/tasks"]
 
 
-def get_service():
+"""def get_service():
     creds = None
     if os.path.exists("token.json"):
         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
@@ -38,4 +38,4 @@ def add_task(task_title, task_notes=None, due_date=None):
         task["due"] = due_date
 
     result = service.tasks().insert(tasklist=tasklist_id, body=task).execute()
-    print(f"Task created: {result['title']} (ID: {result['id']})")
+    print(f"Task created: {result['title']} (ID: {result['id']})")"""
