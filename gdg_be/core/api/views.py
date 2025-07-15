@@ -37,6 +37,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         name = request.data.get("name")
         description = request.data.get("description")
         domain = request.data.get("domain")
+        type = request.data.get("type")
         project = Project.objects.create(
             name=name, description=description, domain=domain
         )
@@ -64,7 +65,12 @@ class ProjectViewSet(viewsets.ModelViewSet):
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        UserProject.objects.create(user=request.user, project=project)
+        if type == "default":
+            for user in User.objects.all():
+                UserProject.objects.create(user=user, project=project)
+        else:
+            UserProject.objects.create(user=request.user, project=project)
+
         return Response(ProjectSerializer(project).data, status=status.HTTP_201_CREATED)
 
 
